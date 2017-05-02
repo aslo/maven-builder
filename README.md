@@ -1,14 +1,17 @@
 # Maven builder
-A docker image that contains maven along with a cache of commonly-used dependencies. All
-dependencies to be pre-cached should be declared in the provided `pom.xml` file. We use
-a dummy project to have maven download all declared dependencies.
+This repository contains the source for a docker image that contains an installation of maven along 
+with a cache of commonly-used dependencies. 
 
-The image can be built using the `build.sh` script.
+## Building the image
+The image can be built using the `build.sh` script. This invokes docker to build the image.
+At build time, all dependencies declared in the included `pom.xml` file are downloaded to the
+image.
 
 ## Caveats
-Since we are using a pom.xml file to declare maven dependencies to download, maven
-assumes they should form a coherent project. That is, maven will not allow more than one version
-of a given dependency. We can likely work around this through clever use of maven profiles.
-It may just be simpler to pre-cache via direct download from maven central, removing maven
-from the process altogether.
+Maven is a dependency management tool that is meant to work within the scope of a project. Because
+if that, it assumes that all declared dependencies should form a valid project.
+That means maven will not allow more than one version of a given dependency to be installed. 
+
+We can likely work around this through clever use of maven profiles, but it may just be simpler to 
+pre-cache via direct download from maven central, removing maven from the process altogether.
 
